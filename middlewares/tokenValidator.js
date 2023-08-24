@@ -7,7 +7,7 @@ const tokenValidator = async (req, res, next) => {
     // console.log(token)
     jwt.verify(
         token,
-        process.env.SECRET,
+        process.env.ACCESS_SECRET,
         (err, decoded) => {
             console.log(err);
             if (err) return res.status(403).json({ message: "Session expired login again!" }); //invalid token
