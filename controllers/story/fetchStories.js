@@ -2,7 +2,7 @@ const Story = require("../../models/Story")
 
 const fetchStories = async (req, res) => {
     try {
-        const search = req.query.category ? { category: req.query.category } : {}
+        const search = (!req.query.category || req.query.category === "ALL") ? {} : { category: req.query.category }
         const stories = await Story.find(search).populate([{ path: "createdBy", select: "username" }])
         return res.json({ stories, total: stories?.length, message: "Stories Fetched!" })
 

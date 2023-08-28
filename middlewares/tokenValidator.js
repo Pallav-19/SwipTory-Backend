@@ -9,8 +9,7 @@ const tokenValidator = async (req, res, next) => {
         token,
         process.env.ACCESS_SECRET,
         (err, decoded) => {
-            console.log(err);
-            if (err) return res.status(403).json({ message: "Session expired login again!" }); //invalid token
+            if (err) return res.sendStatus(403)
             req.user = decoded;
 
             next();
