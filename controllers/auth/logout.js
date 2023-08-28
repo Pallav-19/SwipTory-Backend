@@ -20,7 +20,7 @@ const logout = async (req, res) => {
             res.clearCookie('jwt', { httpOnly: true, secure: true })
         }
     } catch (error) {
-
+        res.status(500).json({ message: "Internal Error!" })
     }
 }
 
