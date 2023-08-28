@@ -1,4 +1,4 @@
-const Story = require("../../models/Story")
+const Story = require("../../models/stories")
 const User = require("../../models/user")
 
 const reactStory = async (req, res) => {

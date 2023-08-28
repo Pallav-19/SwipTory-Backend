@@ -1,4 +1,4 @@
-const Story = require("../../models/Story")
+const Story = require("../../models/stories")
 
 const fetchMyStories = async (req, res) => {
     try {
