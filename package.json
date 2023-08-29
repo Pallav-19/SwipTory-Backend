@@ -14,7 +14,7 @@
   "description": "backend for swiptory - cuvette final project",
   "main": "index.js",
   "engines": {
-    "node": "18.x"
+    "node": "16.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
