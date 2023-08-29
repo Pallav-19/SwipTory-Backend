@@ -26,7 +26,7 @@ const register = async (req, res) => {
         await User.findByIdAndUpdate(newUser._id, { refreshToken });
 
         res.cookie('jwt', refreshToken, { secure: true, httpOnly: true, maxAge: 24 * 60 * 60 * 1000, sameSite: 'None' });
-        return res.status(201).json({ message: "Registered Successfully!", token, user: { username, _id: newUser._id } });
+        return res.status(201).json({ message: "Registered Successfully!", token, user: { username, _id: newUser._id, bookmarks: newUser.bookmarks, likedPosts: newUser.likedPosts } });
     } catch (error) {
         console.error(error);
         return res.status(500).json({ message: "Internal Server Error" });

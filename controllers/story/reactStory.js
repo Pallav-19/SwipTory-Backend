@@ -15,9 +15,12 @@ const reactStory = async (req, res) => {
             query = { $pull: { likedBy: req.user.userId }, $inc: { likes: -1 } }
             query2 = { $pull: { likedPosts: id } }
         }
-        await Story.findByIdAndUpdate(id, query).then(async (result) => {
-            await User.findByIdAndUpdate(req.user.userId, query2)
-            res.status(200).json({ message: isLiked ? "Disliked Post" : "Liked Post" })
+
+        await Story.findByIdAndUpdate(id, query, { new: true }).populate([{ path: "createdBy", select: "username" }]).then(async (result) => {
+            console.log(result);
+            const update = await User.findByIdAndUpdate(req.user.userId, query2, { new: true }).select("username _id bookmarks likedPosts")
+
+            res.status(200).json({ message: isLiked ? "Disliked Post" : "Liked Post", liked: !isLiked, update, result })
 
         }).catch(err => res.json({ message: "An error occured!" }))
     } catch (error) {

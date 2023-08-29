@@ -14,7 +14,7 @@ const handleRefreshToken = async (req, res) => {
                 return res.sendStatus(403)
             }
             const token = jwt.sign({ userId: decoded.userId, username: decoded.username }, process.env.ACCESS_SECRET, { expiresIn: "10s" })
-            return res.status(200).json({ message: 'refresh successful', token, user: { _id: decoded.userId, username: decoded.username } });
+            return res.status(200).json({ message: 'refresh successful!!', token, user: { _id: decoded.userId, username: decoded.username, bookmarks: foundUSer.bookmarks, likedPosts: foundUSer.likedPosts } });
         })
     } catch (error) {
         res.status(500).json({ message: "Internal Server Error!" })

@@ -3,7 +3,8 @@ const Story = require("../../models/stories")
 const fetchMyStories = async (req, res) => {
     try {
         const stories = await Story.find({ createdBy: req.user.userId }).populate([{ path: "createdBy", select: "username" }])
-        return res.json({ stories, total: stories?.length, message: "Stories Fetched!" })
+        const total = await Story.countDocuments()
+        return res.json({ stories, total, message: "Stories Fetched!" })
 
     } catch (error) {
         console.log(error);
