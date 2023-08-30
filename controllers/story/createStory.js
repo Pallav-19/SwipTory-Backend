@@ -1,11 +1,11 @@
 const Story = require("../../models/stories")
 
 const createStory = async (req, res) => {
-
+    console.log(req.body);
     try {
         if (req.body.stories < 3) return res.status(204).json({ message: "Minimum 3 Stories are required!" })
-        stories = (req.body.stories.map(s => ({ ...s, createdBy: req.user.userId })))
-        const newStory = await Story.insertMany(stories)
+        stories = (req?.body?.stories?.map(s => ({ ...s, createdBy: req.user.userId })))
+        const newStory = await Story.insertMany(stories).populate([{ path: "createdBy", select: "username" }])
         res.json({ message: "Story created successfully!", result: newStory })
     } catch (error) {
         console.log(error);
